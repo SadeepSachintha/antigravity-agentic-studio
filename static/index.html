@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Agentic Studio</title>
+    <meta name="description" content="A state-of-the-art interactive workspace for creating, testing, and visualizing Google Antigravity agents with live thought streaming.">
+    <!-- Google Fonts: Outfit & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container" class="app-layout">
+        
+        <!-- SIDEBAR PANEL -->
+        <aside id="sidebar-panel" class="glass-panel sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <span class="logo-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                    <h1 class="logo-title">Antigravity</h1>
+                </div>
+                <div class="logo-subtitle">Agentic Studio</div>
+            </div>
+
+            <nav class="sidebar-content">
+                <!-- Section 1: Configuration -->
+                <div class="sidebar-section">
+                    <h2 class="section-title"><i class="fa-solid fa-sliders"></i> Configuration</h2>
+                    
+                    <div class="form-group">
+                        <label for="model-select">Agent Model</label>
+                        <div class="select-wrapper">
+                            <select id="model-select">
+                                <option value="gemini-3.5-flash" selected>gemini-3.5-flash (Default)</option>
+                                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                                <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="system-instructions">System Instructions (Persona)</label>
+                        <textarea id="system-instructions" placeholder="Shaping the agent's persona. E.g., 'You are a sarcastic math professor who explains concepts with food analogies...'"></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 2: Environment HUD -->
+                <div class="sidebar-section">
+                    <h2 class="section-title"><i class="fa-solid fa-server"></i> Environment Status</h2>
+                    <div id="status-card" class="status-card error">
+                        <div class="status-indicator"></div>
+                        <div class="status-details">
+                            <div id="status-label" class="status-title">Checking environment...</div>
+                            <p id="status-desc" class="status-text">Attempting to establish connection with the local backend server.</p>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p class="copyright">Google Antigravity SDK v0.1.0</p>
+                <div class="footer-links">
+                    <a href="https://ai.google.dev/gemini-api/docs/models/gemini" target="_blank" title="Gemini API Docs"><i class="fa-solid fa-book"></i> Docs</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN ARENA -->
+        <main id="chat-arena" class="chat-viewport">
+            <!-- Header bar -->
+            <header id="arena-header" class="arena-header glass-panel">
+                <div class="header-info">
+                    <button id="toggle-sidebar-btn" class="icon-btn sidebar-toggle" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                    <div class="active-agent-info">
+                        <h2 id="active-agent-name" class="active-agent-title">Workspace Sandbox</h2>
+                        <span class="active-agent-status"><i class="fa-solid fa-circle pulse-green"></i> Active Session</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="clear-chat-btn" class="action-btn-secondary" title="Clear Chat History">
+                        <i class="fa-solid fa-trash-can"></i> Clear Chat
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Message Feed -->
+            <section id="chat-feed" class="chat-feed">
+                <!-- Welcome Card (Displayed when chat is empty) -->
+                <div id="welcome-card" class="welcome-card">
+                    <div class="welcome-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Welcome to Antigravity Studio</h3>
+                    <p>This interactive playground interfaces directly with your locally installed **Google Antigravity SDK**. Ask the agent a question to watch its **Internal Reasoning Process (Thoughts)** stream live in real-time alongside its final answer.</p>
+                    
+                    <div class="suggested-prompts">
+                        <h4>Try these suggested prompts:</h4>
+                        <div class="prompt-grid">
+                            <button class="suggested-prompt-btn" data-prompt="Why is the sky blue? Explain step-by-step.">
+                                <span class="btn-icon"><i class="fa-solid fa-cloud-sun"></i></span> sky color breakdown
+                            </button>
+                            <button class="suggested-prompt-btn" data-prompt="Write a Python function to check if a string is a palindrome. Walk me through your thinking.">
+                                <span class="btn-icon"><i class="fa-solid fa-code"></i></span> Palindrome code & logic
+                            </button>
+                            <button class="suggested-prompt-btn" data-prompt="I have 5 red blocks, 3 blue blocks, and 2 green blocks. If I pick 3 blocks at random, what is the probability that all 3 are red?">
+                                <span class="btn-icon"><i class="fa-solid fa-calculator"></i></span> Probability problem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Input area -->
+            <footer id="arena-input-area" class="arena-input-area glass-panel">
+                <form id="chat-form" class="chat-form">
+                    <div class="input-container">
+                        <textarea id="chat-input" placeholder="Type your message to the agent here... (Shift + Enter for new line)" rows="1" required></textarea>
+                        <button type="submit" id="send-btn" class="send-button" aria-label="Send Message">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                    </div>
+                </form>
+            </footer>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
