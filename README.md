@@ -8,10 +8,20 @@ Built with a lightweight **Python FastAPI** backend and a premium, responsive **
 
 ## ✨ Features
 
-* **Sleek Glassmorphic UI:** A dark-mode layout styled with neon gradients, custom scrollbars, active HUD status indicators, and modern typography (*Outfit* & *Space Mono*).
+* **Cooperative Agent Writing Room ✍️:** A state-of-the-art space where 4 specialized Google Antigravity AI agents collaborate sequentially and in refinement loops to plan, research, compile, audit, and perfect complex documents.
+  * **Orchestrator Agent:** Outlines structure and formulates targeted research focus.
+  * **Researcher Agent:** Equipped with a custom non-blocking scraper executing real web searches on DuckDuckGo.
+  * **Drafting Agent:** Compiles outlines and research notes into structured markdown.
+  * **Critic Agent:** Audits correctness, style guides, and formats against checkable guidelines.
+* **Interactive Human-in-the-Loop Review Panel:** A premium split-screen dashboard displaying:
+  * **Document Preview:** Beautiful, styled live markdown rendering on-the-fly.
+  * **Agent Logs:** A transparent transcript record showing the conversations between agents.
+* **Revision & Feedback Recursion:** Type custom revision requests and send them back to the drafting and critic agents for continuous, iterative refinement.
+* **Instant Export & Approve:** Saves finalized approved documents to local workspace storage and triggers automated browser file downloads.
+* **Sleek Glassmorphic UI:** A dark-mode layout styled with neon gradients, visual timeline stepper indicators, active HUD status card, and modern typography (*Outfit* & *Space Mono*).
 * **Live Thought Streaming:** Watch the agent's internal reasoning process (`thoughts` generator) stream dynamically in collapsible brain-icon logs before the final response is displayed.
 * **Persona Shaping:** Configure custom system instructions on-the-fly inside the control sidebar.
-* **Flexible Model Select:** Instantly switch between `gemini-3.5-flash`, `gemini-1.5-flash`, and `gemini-1.5-pro` models.
+* **Flexible Model Select:** Instantly switch between `gemini-3.5-flash` (hyper-fast) and `gemini-1.5-pro` (high thoroughness) model variations.
 * **Zero Node.js Overhead:** Serves complete static frontend assets straight from the Python FastAPI server.
 
 ---
@@ -47,14 +57,15 @@ http://localhost:8000
 ```
 antigravity-agentic-studio/
 ├── .env                  # Environment configurations (Credentials)
-├── requirements.txt      # Python dependencies (FastAPI, AGY SDK, etc.)
-├── main.py               # FastAPI backend with streaming SSE chat handler
+├── requirements.txt      # Python dependencies (FastAPI, AGY SDK, BS4, etc.)
+├── main.py               # FastAPI backend with streaming SSE chat & Writing Room handlers
 ├── run.sh                # Setup and execution shell script
 ├── README.md             # Repository documentation
 └── static/               # Single-page frontend app assets
-    ├── index.html        # Semantic HTML layout
-    ├── style.css         # Custom stylesheet (Glassmorphic theme)
-    └── script.js         # Client-side EventSource/Stream handler
+    ├── index.html        # Tabbed glassmorphic layout
+    ├── style.css         # Styling stylesheet (Neon timeline & agent bubbles)
+    ├── script.js         # Client orchestration, SSE readers & markdown parsers
+    └── documents/        # Output folder for approved Markdown files
 ```
 
 ---
@@ -62,3 +73,4 @@ antigravity-agentic-studio/
 ## 🛡️ License
 
 This project is licensed under the Apache-2.0 License - see the [Google Antigravity SDK](https://github.com/google) terms for additional SDK information.
+
